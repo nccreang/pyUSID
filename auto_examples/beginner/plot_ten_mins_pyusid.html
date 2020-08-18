@@ -1,0 +1,744 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>01. pyUSID in 10 minutes &mdash; pyUSID 0.0.9 documentation</title>
+  
+
+  
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-binder.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/gallery-dataframe.css" type="text/css" />
+
+  
+  
+  
+  
+
+  
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+    
+    <link rel="author" title="About these documents" href="../../about.html" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="02. The USIDataset" href="plot_usi_dataset.html" />
+    <link rel="prev" title="00. Primer to HDF5 and h5py" href="plot_h5py.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="../../index.html" class="icon icon-home" alt="Documentation Home"> pyUSID
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.0.9
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../../about.html">pyUSID</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../getting_started.html">Getting Started</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../install.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../external_guides.html">Tutorials on Basics</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="../index.html">Examples &amp; Tutorials</a><ul class="current">
+<li class="toctree-l2 current"><a class="reference internal" href="../index.html#beginner-topics">Beginner topics</a><ul class="current">
+<li class="toctree-l3"><a class="reference internal" href="plot_h5py.html">00. Primer to HDF5 and h5py</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">01. pyUSID in 10 minutes</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#recommended-pre-requisite-reading">Recommended pre-requisite reading</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="plot_usi_dataset.html">02. The USIDataset</a></li>
+<li class="toctree-l3"><a class="reference internal" href="plot_numpy_translator.html">03. NumpyTranslator for translating from proprietary file formats</a></li>
+<li class="toctree-l3"><a class="reference internal" href="plot_plot_utils.html">04. Plotting utilities</a></li>
+<li class="toctree-l3"><a class="reference internal" href="plot_hdf_utils_read.html">05. Utilities for reading h5USID files</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../index.html#intermediate-topics">Intermediate topics</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../../data_format.html">Data Schema and File Format</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contribution_guidelines.html">Guidelines for Contribution</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../faq.html">Frequently asked questions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../contact.html">Contact us</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../credits.html">Credits</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../whats_new.html">What’s New</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../matlab_to_python.html">Upgrading from Matlab</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../scale_to_hpc.html">Scaling to High-Performance-Computing Clusters</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../api.html">API Reference</a></li>
+</ul>
+
+            
+          
+        </div>
+        
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">pyUSID</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html" class="icon icon-home"></a> &raquo;</li>
+        
+          <li><a href="../index.html">Examples &amp; Tutorials</a> &raquo;</li>
+        
+      <li>01. pyUSID in 10 minutes</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../../_sources/auto_examples/beginner/plot_ten_mins_pyusid.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="sphx-glr-download-link-note admonition note">
+<p class="admonition-title">Note</p>
+<p>Click <a class="reference internal" href="#sphx-glr-download-auto-examples-beginner-plot-ten-mins-pyusid-py"><span class="std std-ref">here</span></a>     to download the full example code</p>
+</div>
+<div class="sphx-glr-example-title section" id="pyusid-in-10-minutes">
+<span id="sphx-glr-auto-examples-beginner-plot-ten-mins-pyusid-py"></span><h1>01. pyUSID in 10 minutes<a class="headerlink" href="#pyusid-in-10-minutes" title="Permalink to this headline">¶</a></h1>
+<p><strong>Suhas Somnath</strong></p>
+<p><strong>Rajiv Giridharagopal (University of Washington)</strong></p>
+<p>4/24/2020</p>
+<p><strong>This document serves as a quick primer to the essential components of
+pyUSID</strong></p>
+<div class="section" id="recommended-pre-requisite-reading">
+<h2>Recommended pre-requisite reading<a class="headerlink" href="#recommended-pre-requisite-reading" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p><a class="reference external" href="/../../../USID/usid_model.html">Universal Spectroscopic and Imaging Data (USID) model</a></p></li>
+<li><p><a class="reference external" href="./plot_h5py.html">Crash course on HDF5 and h5py</a></p></li>
+</ul>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pyUSID</span> <span class="k">as</span> <span class="nn">usid</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">h5py</span>
+</pre></div>
+</div>
+<div class="section" id="converting-a-3d-matrix-to-usid">
+<h3>Converting a 3D Matrix to USID<a class="headerlink" href="#converting-a-3d-matrix-to-usid" title="Permalink to this headline">¶</a></h3>
+<p>As an example of how to use pyUSID to reformat data for analysis, let’s take
+an image with some time-series at each pixel
+Let’s imagine we have a 10 x 10 array that measures the height. But we’re applying
+a voltage to oscillate the height at 2 Hz for 1 second, with 10 Hz sampling and a
+slight phase shift and amplitude shift at each pixel.</p>
+<p>In other words, a 10 x 10 x 100 array</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create some data</span>
+<span class="n">data</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">,</span><span class="mi">100</span><span class="p">))</span>
+<span class="n">phase</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">pi</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">])</span>
+<span class="n">amp</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">100</span><span class="p">),</span> <span class="p">[</span><span class="mi">10</span><span class="p">,</span><span class="mi">10</span><span class="p">])</span>
+<span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">100</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+        <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]):</span>
+            <span class="n">data</span><span class="p">[</span><span class="n">r</span><span class="p">,</span><span class="n">c</span><span class="p">,</span><span class="n">x</span><span class="p">]</span> <span class="o">=</span> <span class="n">amp</span><span class="p">[</span><span class="n">r</span><span class="p">][</span><span class="n">c</span><span class="p">]</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="mi">2</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="mi">2</span><span class="o">*</span><span class="n">x</span><span class="o">/</span><span class="mi">100</span> <span class="o">+</span> <span class="n">phase</span><span class="p">[</span><span class="n">r</span><span class="p">][</span><span class="n">c</span><span class="p">])</span>
+
+<span class="c1"># To visualize a 3D stack, there&#39;s a handy built-in function</span>
+<span class="n">usid</span><span class="o">.</span><span class="n">plot_utils</span><span class="o">.</span><span class="n">plot_map_stack</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">num_comps</span><span class="o">=</span><span class="mi">4</span><span class="p">,</span> <span class="n">fig_mult</span><span class="o">=</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="mi">10</span><span class="p">),</span> <span class="n">pad_mult</span><span class="o">=</span><span class="p">(</span><span class="mf">0.01</span><span class="p">,</span><span class="o">.</span><span class="mi">4</span><span class="p">))</span>
+</pre></div>
+</div>
+<img alt=", Component 0, Component 1, Component 2, Component 3" class="sphx-glr-single-img" src="../../_images/sphx_glr_plot_ten_mins_pyusid_001.png" />
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/travis/virtualenv/python3.7.1/lib/python3.7/site-packages/sidpy/viz/plot_utils/image.py:378: MatplotlibDeprecationWarning:
+The &#39;add_all&#39; parameter of __init__() was deprecated in Matplotlib 3.3 and will be removed two minor releases later. If any parameter follows &#39;add_all&#39;, they should be passed as keyword, not positionally.
+  **igkwargs)
+
+(&lt;Figure size 2000x400 with 8 Axes&gt;, &lt;mpl_toolkits.axes_grid1.axes_grid.ImageGrid object at 0x7f0388f303c8&gt;)
+</pre></div>
+</div>
+<p>Instead of being 3D, we need it to be (10x10, 100) in 2D for USID.
+First, let’s define the position dimensions, which are 10 x 10 nm</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">pos</span> <span class="o">=</span> <span class="n">usid</span><span class="o">.</span><span class="n">hdf_utils</span><span class="o">.</span><span class="n">build_ind_val_matrices</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mf">10e-9</span><span class="p">,</span> <span class="mf">1e-9</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mf">10e-9</span><span class="p">,</span> <span class="mf">1e-9</span><span class="p">)],</span>
+                                             <span class="n">is_spectral</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+
+<span class="c1"># pos[0] are the indices (0,1,2...), pos[1] are the values (0,1e-9, 2e-9...)</span>
+<span class="c1"># Second, let&#39;s define he spectral dimensions, which is our 1 s long waveform</span>
+<span class="n">spec</span> <span class="o">=</span> <span class="n">usid</span><span class="o">.</span><span class="n">hdf_utils</span><span class="o">.</span><span class="n">build_ind_val_matrices</span><span class="p">([</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.01</span><span class="p">)],</span> <span class="n">is_spectral</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+<span class="c1"># Finally, we make our USID-compatible dataset, which is now (100, 100)</span>
+<span class="n">data_reshape</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">usid</span><span class="o">.</span><span class="n">hdf_utils</span><span class="o">.</span><span class="n">reshape_from_n_dims</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">pos</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">spec</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="creating-a-usid-dataset">
+<h3>Creating a USID Dataset<a class="headerlink" href="#creating-a-usid-dataset" title="Permalink to this headline">¶</a></h3>
+<p>Now that we have a USID-compatible dataset, we’re almost there
+Let’s actually create the USID dataset</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Use the USID Dimension to define the dimensions directly, including the units</span>
+<span class="n">pos_dims</span> <span class="o">=</span> <span class="p">[</span><span class="n">usid</span><span class="o">.</span><span class="n">write_utils</span><span class="o">.</span><span class="n">Dimension</span><span class="p">(</span><span class="s1">&#39;Rows&#39;</span><span class="p">,</span> <span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mf">10e-9</span><span class="p">,</span> <span class="mf">1e-9</span><span class="p">)),</span>
+            <span class="n">usid</span><span class="o">.</span><span class="n">write_utils</span><span class="o">.</span><span class="n">Dimension</span><span class="p">(</span><span class="s1">&#39;Cols&#39;</span><span class="p">,</span> <span class="s1">&#39;m&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mf">10e-9</span><span class="p">,</span> <span class="mf">1e-9</span><span class="p">))]</span>
+
+<span class="n">spec_dims</span> <span class="o">=</span> <span class="p">[</span><span class="n">usid</span><span class="o">.</span><span class="n">write_utils</span><span class="o">.</span><span class="n">Dimension</span><span class="p">(</span><span class="s1">&#39;Time&#39;</span><span class="p">,</span> <span class="s1">&#39;s&#39;</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mf">0.01</span><span class="p">))]</span>
+
+<span class="c1"># Use the ArrayTranslator to create our file</span>
+<span class="c1"># Let&#39;s define our HDF55 file. This is the name of a file we&#39;ll write into</span>
+<span class="n">h5_path</span> <span class="o">=</span> <span class="s1">&#39;cookbook_data.h5&#39;</span>
+
+<span class="c1"># Now let&#39;s use the ArrayTranslator to write our data to an HDF5 file</span>
+<span class="n">tran</span> <span class="o">=</span> <span class="n">usid</span><span class="o">.</span><span class="n">io</span><span class="o">.</span><span class="n">numpy_translator</span><span class="o">.</span><span class="n">ArrayTranslator</span><span class="p">()</span>
+<span class="n">tran</span><span class="o">.</span><span class="n">translate</span><span class="p">(</span><span class="n">h5_path</span><span class="p">,</span> <span class="s1">&#39;data&#39;</span><span class="p">,</span> <span class="n">data_reshape</span><span class="p">,</span> <span class="s1">&#39;Height&#39;</span><span class="p">,</span> <span class="s1">&#39;m&#39;</span><span class="p">,</span>
+               <span class="n">pos_dims</span><span class="p">,</span> <span class="n">spec_dims</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/travis/virtualenv/python3.7.1/lib/python3.7/site-packages/pyUSID/io/dtype_utils.py:65: FutureWarning: pyUSID.io.dtype_utils.contains_integers has been moved to sidpy.base.num_utils.contains_integers. This copy in pyUSID willbe removed in future release. Please update your import statements
+  FutureWarning)
+/home/travis/virtualenv/python3.7.1/lib/python3.7/site-packages/pyUSID/io/dtype_utils.py:312: FutureWarning: pyUSID.io.dtype_utils.validate_single_string_arg has been moved to sidpy.base.string_utils.validate_single_string_arg. This copy in pyUSID willbe removed in future release. Please update your import statements
+  FutureWarning)
+/home/travis/virtualenv/python3.7.1/lib/python3.7/site-packages/pyUSID/io/dtype_utils.py:361: FutureWarning: pyUSID.io.dtype_utils.validate_string_args has been moved to sidpy.base.string_utils.validate_string_args. This copy in pyUSID willbe removed in future release. Please update your import statements
+  FutureWarning)
+/home/travis/virtualenv/python3.7.1/lib/python3.7/site-packages/pyUSID/io/dtype_utils.py:65: FutureWarning: pyUSID.io.dtype_utils.contains_integers has been moved to sidpy.base.num_utils.contains_integers. This copy in pyUSID willbe removed in future release. Please update your import statements
+  FutureWarning)
+/home/travis/virtualenv/python3.7.1/lib/python3.7/site-packages/pyUSID/io/hdf_utils/simple.py:1135: UserWarning: In the future write_ind_val_dsets will default to requiring dimensions to be arranged from slowest to fastest varying
+  warn(&#39;In the future write_ind_val_dsets will default to requiring dimensions to be arranged from slowest to fastest varying&#39;)
+/home/travis/virtualenv/python3.7.1/lib/python3.7/site-packages/pyUSID/io/hdf_utils/simple.py:1192: UserWarning: pyUSID.io.hdf_utils.simple.write_ind_val_dsets no longer createsregion references for each dimension. Please use pyUSID.io.reg_ref.write_region_references to manually create region references
+  warn(&#39;pyUSID.io.hdf_utils.simple.write_ind_val_dsets no longer creates&#39;
+/home/travis/virtualenv/python3.7.1/lib/python3.7/site-packages/pyUSID/io/dtype_utils.py:41: FutureWarning: pyUSID.io.dtype_utils.lazy_load_array has been moved to sidpy.hdf.hdf_utils.lazy_load_array. This copy in pyUSID willbe removed in future release. Please update your import statements
+  FutureWarning)
+
+&#39;cookbook_data.h5&#39;
+</pre></div>
+</div>
+<p>That’s it! We’re done. It’s just a few lines of code to convert a random matrix
+of data into a USID format. We just need to know a little about our data.
+Now that our cookbook_data is full of delicious data, let’s crack it open.</p>
+<p>We can open the file by using the h5py command</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">h5_file</span> <span class="o">=</span> <span class="n">h5py</span><span class="o">.</span><span class="n">File</span><span class="p">(</span><span class="n">h5_path</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/travis/build/pycroscopy/pyUSID/examples/beginner/plot_ten_mins_pyusid.py:92: H5pyDeprecationWarning: The default file mode will change to &#39;r&#39; (read-only) in h5py 3.0. To suppress this warning, pass the mode you need to h5py.File(), or set the global default h5.get_config().default_file_mode, or set the environment variable H5PY_DEFAULT_READONLY=1. Available modes are: &#39;r&#39;, &#39;r+&#39;, &#39;w&#39;, &#39;w-&#39;/&#39;x&#39;, &#39;a&#39;. See the docs for details.
+  h5_file = h5py.File(h5_path)
+</pre></div>
+</div>
+<p>Print_tree shows all the contents in this HDF5 file</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usid</span><span class="o">.</span><span class="n">hdf_utils</span><span class="o">.</span><span class="n">print_tree</span><span class="p">(</span><span class="n">h5_file</span><span class="p">,</span> <span class="n">rel_paths</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/
+Measurement_000
+Measurement_000/Channel_000
+Measurement_000/Channel_000/Position_Indices
+Measurement_000/Channel_000/Position_Values
+Measurement_000/Channel_000/Raw_Data
+Measurement_000/Channel_000/Spectroscopic_Indices
+Measurement_000/Channel_000/Spectroscopic_Values
+</pre></div>
+</div>
+<p>Our data are in the ‘Raw_Data’ dataset. How do we extract our data?
+First let’s print all the Main datasets</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">usid</span><span class="o">.</span><span class="n">hdf_utils</span><span class="o">.</span><span class="n">get_all_main</span><span class="p">(</span><span class="n">h5_file</span><span class="p">))</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[&lt;HDF5 dataset &quot;Raw_Data&quot;: shape (100, 100), type &quot;&lt;f8&quot;&gt;
+located at:
+        /Measurement_000/Channel_000/Raw_Data
+Data contains:
+        Height (m)
+Data dimensions and original shape:
+Position Dimensions:
+        Cols - size: 10
+        Rows - size: 10
+Spectroscopic Dimensions:
+        Time - size: 100
+Data Type:
+        float64]
+</pre></div>
+</div>
+<p>This is a list of all the Main datasets. In this case there’s only a single one.
+So we can access our data in two ways:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Option 1:</span>
+<span class="c1"># Access a specific dataset in the list of Main datasets</span>
+<span class="n">data_usid</span> <span class="o">=</span> <span class="n">usid</span><span class="o">.</span><span class="n">hdf_utils</span><span class="o">.</span><span class="n">get_all_main</span><span class="p">(</span><span class="n">h5_file</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="c1"># Option 2:</span>
+<span class="c1"># We could highlight the path in the tree and access it directly</span>
+<span class="n">data_usid</span> <span class="o">=</span> <span class="n">h5_file</span><span class="p">[</span><span class="s1">&#39;Measurement_000/Channel_000/Raw_Data&#39;</span><span class="p">]</span>
+</pre></div>
+</div>
+<p>Lastly, let’s upgrade from h5py Dataset to a USID Dataset</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data_usid</span> <span class="o">=</span> <span class="n">usid</span><span class="o">.</span><span class="n">USIDataset</span><span class="p">(</span><span class="n">data_usid</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data_usid</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>&lt;HDF5 dataset &quot;Raw_Data&quot;: shape (100, 100), type &quot;&lt;f8&quot;&gt;
+located at:
+        /Measurement_000/Channel_000/Raw_Data
+Data contains:
+        Height (m)
+Data dimensions and original shape:
+Position Dimensions:
+        Cols - size: 10
+        Rows - size: 10
+Spectroscopic Dimensions:
+        Time - size: 100
+Data Type:
+        float64
+</pre></div>
+</div>
+</div>
+<div class="section" id="exploring-a-usid-dataset">
+<h3>Exploring a USID Dataset<a class="headerlink" href="#exploring-a-usid-dataset" title="Permalink to this headline">¶</a></h3>
+<p>There are lots of advantages to this kind of dataset</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Let&#39;s take a look via the handy visualize option</span>
+<span class="c1"># What is the signal vs time at pixel (5,3)</span>
+<span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">data_usid</span><span class="o">.</span><span class="n">visualize</span><span class="p">(</span><span class="n">slice_dict</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Rows&#39;</span><span class="p">:</span> <span class="mi">5</span><span class="p">,</span> <span class="s1">&#39;Cols&#39;</span><span class="p">:</span> <span class="mi">3</span><span class="p">})</span>
+
+<span class="c1"># What about the image at 0.3 seconds?</span>
+<span class="n">_</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">data_usid</span><span class="o">.</span><span class="n">visualize</span><span class="p">(</span><span class="n">slice_dict</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Time&#39;</span><span class="p">:</span> <span class="mi">30</span><span class="p">})</span>
+</pre></div>
+</div>
+<ul class="sphx-glr-horizontal">
+<li><img alt="/Measurement_000/Channel_000/Raw_Data" class="sphx-glr-multi-img" src="../../_images/sphx_glr_plot_ten_mins_pyusid_002.png" />
+</li>
+<li><img alt="/Measurement_000/Channel_000/Raw_Data" class="sphx-glr-multi-img" src="../../_images/sphx_glr_plot_ten_mins_pyusid_003.png" />
+</li>
+</ul>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/travis/virtualenv/python3.7.1/lib/python3.7/site-packages/pyUSID/io/dtype_utils.py:337: FutureWarning: pyUSID.io.dtype_utils.validate_list_of_strings has been moved to sidpy.base.string_utils.validate_list_of_strings. This copy in pyUSID willbe removed in future release. Please update your import statements
+  FutureWarning)
+/home/travis/virtualenv/python3.7.1/lib/python3.7/site-packages/pyUSID/io/dtype_utils.py:337: FutureWarning: pyUSID.io.dtype_utils.validate_list_of_strings has been moved to sidpy.base.string_utils.validate_list_of_strings. This copy in pyUSID willbe removed in future release. Please update your import statements
+  FutureWarning)
+</pre></div>
+</div>
+<p>To access our data directly, we use the [()] shortcut</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data_usid</span><span class="p">[()]</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>array([[-1.22464680e-16, -1.25333234e-01, -2.48689887e-01, ...,
+         3.68124553e-01,  2.48689887e-01,  1.25333234e-01],
+       [-8.32466688e-01, -9.67608202e-01, -1.08748996e+00, ...,
+        -3.57794561e-01, -5.25136477e-01, -6.84196678e-01],
+       [-1.72654042e+00, -1.78021203e+00, -1.80580864e+00, ...,
+        -1.40766679e+00, -1.53878731e+00, -1.64564023e+00],
+       ...,
+       [ 4.00287303e+00,  3.81531114e+00,  3.56757951e+00, ...,
+         4.17996942e+00,  4.18665132e+00,  4.12730722e+00],
+       [ 2.72498089e+00,  2.23963661e+00,  1.71897192e+00, ...,
+         3.89604828e+00,  3.55976928e+00,  3.16735059e+00],
+       [ 6.12323400e-16, -6.26666168e-01, -1.24344944e+00, ...,
+         1.84062276e+00,  1.24344944e+00,  6.26666168e-01]])
+</pre></div>
+</div>
+<p>Reconstruct the original form of (10,10,100)</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data_usid</span><span class="o">.</span><span class="n">get_n_dim_form</span><span class="p">()</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>array([[[-1.22464680e-16, -1.25333234e-01, -2.48689887e-01, ...,
+          3.68124553e-01,  2.48689887e-01,  1.25333234e-01],
+        [-8.32466688e-01, -9.67608202e-01, -1.08748996e+00, ...,
+         -3.57794561e-01, -5.25136477e-01, -6.84196678e-01],
+        [-1.72654042e+00, -1.78021203e+00, -1.80580864e+00, ...,
+         -1.40766679e+00, -1.53878731e+00, -1.64564023e+00],
+        ...,
+        [ 3.68986038e+00,  3.78862182e+00,  3.82763442e+00, ...,
+          3.05520790e+00,  3.32023885e+00,  3.53290765e+00],
+        [ 3.95361569e+00,  3.73312968e+00,  3.45376999e+00, ...,
+          4.23201552e+00,  4.20504118e+00,  4.11175082e+00],
+        [ 2.50660743e+00,  1.99799769e+00,  1.45787833e+00, ...,
+          3.76640193e+00,  3.39783716e+00,  2.97568647e+00]],
+
+       [[-6.59865023e-02, -1.95600850e-01, -3.22130455e-01, ...,
+          3.20874474e-01,  1.94303625e-01,  6.46684919e-02],
+        [-9.28470992e-01, -1.05983203e+00, -1.17447888e+00, ...,
+         -4.55937498e-01, -6.24123859e-01, -7.82467415e-01],
+        [-1.79637896e+00, -1.83683380e+00, -1.84832067e+00, ...,
+         -1.50980341e+00, -1.63156415e+00, -1.72759415e+00],
+        ...,
+        [ 3.78668017e+00,  3.85612671e+00,  3.86475982e+00, ...,
+          3.22908900e+00,  3.47066948e+00,  3.65751543e+00],
+        [ 3.88660943e+00,  3.63350150e+00,  3.32309108e+00, ...,
+          4.26708260e+00,  4.20591782e+00,  4.07842321e+00],
+        [ 2.27382918e+00,  1.74368869e+00,  1.18604918e+00, ...,
+          3.61860084e+00,  3.21873613e+00,  2.76811003e+00]],
+
+       [[-1.36822147e-01, -2.70114624e-01, -3.99147233e-01, ...,
+          2.67457022e-01,  1.34099978e-01, -1.37190215e-03],
+        [-1.02466277e+00, -1.15127053e+00, -1.25972206e+00, ...,
+         -5.57107682e-01, -7.25220155e-01, -8.81895474e-01],
+        [-1.86019242e+00, -1.88663381e+00, -1.88332187e+00, ...,
+         -1.60881754e+00, -1.72018025e+00, -1.80441468e+00],
+        ...,
+        [ 3.86930200e+00,  3.90851699e+00,  3.88609233e+00, ...,
+          3.39279036e+00,  3.60938920e+00,  3.76906581e+00],
+        [ 3.80182410e+00,  3.51654590e+00,  3.17580967e+00, ...,
+          4.28470428e+00,  4.18895594e+00,  4.02714527e+00],
+        [ 2.02741640e+00,  1.47760285e+00,  9.04486617e-01, ...,
+          3.45298211e+00,  3.02295616e+00,  2.54525639e+00]],
+
+       ...,
+
+       [[-5.51353069e-01, -6.92178932e-01, -8.22088720e-01, ...,
+         -8.62365598e-02, -2.45973877e-01, -4.01832038e-01],
+        [-1.48689608e+00, -1.57501934e+00, -1.63830361e+00, ...,
+         -1.08921117e+00, -1.24206139e+00, -1.37532357e+00],
+        [-2.06962665e+00, -2.01601194e+00, -1.93060352e+00, ...,
+         -2.03383206e+00, -2.07860752e+00, -2.09060211e+00],
+        ...,
+        [ 4.04865410e+00,  3.92725549e+00,  3.74392172e+00, ...,
+          4.02714269e+00,  4.09899465e+00,  4.10620301e+00],
+        [ 3.11581129e+00,  2.68168216e+00,  2.20526129e+00, ...,
+          4.09995402e+00,  3.83058342e+00,  3.50080223e+00],
+        [ 6.22732575e-01,  6.24407800e-03, -6.10342891e-01, ...,
+          2.37530860e+00,  1.81667946e+00,  1.22940021e+00]],
+
+       [[-6.43351237e-01, -7.83201758e-01, -9.10700719e-01, ...,
+         -1.72508318e-01, -3.35577630e-01, -4.93354682e-01],
+        [-1.57118254e+00, -1.64872428e+00, -1.70026465e+00, ...,
+         -1.19670632e+00, -1.34337725e+00, -1.46886231e+00],
+        [-2.08613451e+00, -2.01497586e+00, -1.91203984e+00, ...,
+         -2.10032781e+00, -2.12914967e+00, -2.12439356e+00],
+        ...,
+        [ 4.03449045e+00,  3.88000653e+00,  3.66433260e+00, ...,
+          4.11147876e+00,  4.15114643e+00,  4.12534804e+00],
+        [ 2.92825467e+00,  2.46778185e+00,  1.96839063e+00, ...,
+          4.00728794e+00,  3.70412569e+00,  3.34254716e+00],
+        [ 3.14557016e-01, -3.08274073e-01, -9.26243495e-01, ...,
+          2.11454094e+00,  1.53559275e+00,  9.32427352e-01]],
+
+       [[-7.37237478e-01, -8.75201903e-01, -9.99363870e-01, ...,
+         -2.63166871e-01, -4.28787744e-01, -5.87646379e-01],
+        [-1.65127147e+00, -1.71731836e+00, -1.75628211e+00, ...,
+         -1.30307852e+00, -1.44250537e+00, -1.55918304e+00],
+        [-2.09319257e+00, -2.00415605e+00, -1.88351280e+00, ...,
+         -2.15923703e+00, -2.17134934e+00, -2.14921818e+00],
+        ...,
+        [ 4.00287303e+00,  3.81531114e+00,  3.56757951e+00, ...,
+          4.17996942e+00,  4.18665132e+00,  4.12730722e+00],
+        [ 2.72498089e+00,  2.23963661e+00,  1.71897192e+00, ...,
+          3.89604828e+00,  3.55976928e+00,  3.16735059e+00],
+        [ 6.12323400e-16, -6.26666168e-01, -1.24344944e+00, ...,
+          1.84062276e+00,  1.24344944e+00,  6.26666168e-01]]])
+</pre></div>
+</div>
+<p>What are the properties of our data?</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Rows=&#39;</span><span class="p">,</span><span class="n">data_usid</span><span class="o">.</span><span class="n">get_pos_values</span><span class="p">(</span><span class="s1">&#39;Rows&#39;</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Cols=&#39;</span><span class="p">,</span><span class="n">data_usid</span><span class="o">.</span><span class="n">get_pos_values</span><span class="p">(</span><span class="s1">&#39;Cols&#39;</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Times=&#39;</span><span class="p">,</span><span class="n">data_usid</span><span class="o">.</span><span class="n">get_spec_values</span><span class="p">(</span><span class="s1">&#39;Time&#39;</span><span class="p">))</span>
+
+<span class="c1"># Attributes of the data when it was written</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">usid</span><span class="o">.</span><span class="n">hdf_utils</span><span class="o">.</span><span class="n">get_attributes</span><span class="p">(</span><span class="n">data_usid</span><span class="p">))</span>
+
+<span class="c1"># To get the path of the Main dataset within the HDF5 file</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data_usid</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+
+<span class="c1"># And to get the parent folder of this Dataset, you use</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">data_usid</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">name</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>Rows= [0.e+00 1.e-09 2.e-09 3.e-09 4.e-09 5.e-09 6.e-09 7.e-09 8.e-09 9.e-09]
+Cols= [0.e+00 1.e-09 2.e-09 3.e-09 4.e-09 5.e-09 6.e-09 7.e-09 8.e-09 9.e-09]
+Times= [0.   0.01 0.02 0.03 0.04 0.05 0.06 0.07 0.08 0.09 0.1  0.11 0.12 0.13
+ 0.14 0.15 0.16 0.17 0.18 0.19 0.2  0.21 0.22 0.23 0.24 0.25 0.26 0.27
+ 0.28 0.29 0.3  0.31 0.32 0.33 0.34 0.35 0.36 0.37 0.38 0.39 0.4  0.41
+ 0.42 0.43 0.44 0.45 0.46 0.47 0.48 0.49 0.5  0.51 0.52 0.53 0.54 0.55
+ 0.56 0.57 0.58 0.59 0.6  0.61 0.62 0.63 0.64 0.65 0.66 0.67 0.68 0.69
+ 0.7  0.71 0.72 0.73 0.74 0.75 0.76 0.77 0.78 0.79 0.8  0.81 0.82 0.83
+ 0.84 0.85 0.86 0.87 0.88 0.89 0.9  0.91 0.92 0.93 0.94 0.95 0.96 0.97
+ 0.98 0.99]
+/home/travis/virtualenv/python3.7.1/lib/python3.7/site-packages/pyUSID/io/hdf_utils/base.py:133: UserWarning: pyUSID.io.hdf_utils.get_attributes has been moved to sidpy.hdf.hdf_utils.get_attributes. This copy in pyUSID willbe removed in future release. Please update your import statements
+  warn(&#39;pyUSID.io.hdf_utils.get_attributes has been moved to &#39;
+{&#39;Position_Indices&#39;: &lt;HDF5 object reference&gt;, &#39;Position_Values&#39;: &lt;HDF5 object reference&gt;, &#39;Spectroscopic_Indices&#39;: &lt;HDF5 object reference&gt;, &#39;Spectroscopic_Values&#39;: &lt;HDF5 object reference&gt;, &#39;machine_id&#39;: &#39;localhost&#39;, &#39;platform&#39;: &#39;Linux-4.15.0-1077-gcp-x86_64-with-debian-stretch-sid&#39;, &#39;pyUSID_version&#39;: &#39;0.0.9&#39;, &#39;quantity&#39;: &#39;Height&#39;, &#39;sidpy_version&#39;: &#39;0.0.1&#39;, &#39;timestamp&#39;: &#39;2020_08_18-02_10_07&#39;, &#39;units&#39;: &#39;m&#39;}
+/Measurement_000/Channel_000/Raw_Data
+/Measurement_000/Channel_000
+</pre></div>
+</div>
+</div>
+<div class="section" id="adding-some-new-data">
+<h3>Adding some new data<a class="headerlink" href="#adding-some-new-data" title="Permalink to this headline">¶</a></h3>
+<p>Let’s say we process our data using some method and want to save that process.
+For the sake of argument, we’ll just make a matrix that’s the  magnitude^2</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data_proc</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data_usid</span><span class="p">[()]</span><span class="o">**</span><span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># Let&#39;s create a new group within this file to store our results</span>
+<span class="n">result_group</span> <span class="o">=</span> <span class="n">usid</span><span class="o">.</span><span class="n">hdf_utils</span><span class="o">.</span><span class="n">create_indexed_group</span><span class="p">(</span><span class="n">h5_file</span><span class="p">[</span><span class="n">data_usid</span><span class="o">.</span><span class="n">parent</span><span class="o">.</span><span class="n">name</span><span class="p">],</span> <span class="s1">&#39;Magnitude&#39;</span><span class="p">)</span>
+
+<span class="c1"># The &quot;indexed&quot; part means it appends 000, 001, etc if we do this many times</span>
+<span class="c1"># Many built-in pyUSID and pycroscopy command do this so we don&#39;t overwrite old</span>
+<span class="c1"># results. Because of the power of HDF5 we can go back to old processing and see!</span>
+<span class="c1">#</span>
+<span class="c1"># There&#39;s an analogous command create_results_group if you&#39;d like</span>
+<span class="c1">#</span>
+<span class="c1"># Anyway let&#39;s print our tree out for good measure</span>
+<span class="n">usid</span><span class="o">.</span><span class="n">hdf_utils</span><span class="o">.</span><span class="n">print_tree</span><span class="p">(</span><span class="n">h5_file</span><span class="p">,</span> <span class="n">rel_paths</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/travis/virtualenv/python3.7.1/lib/python3.7/site-packages/pyUSID/io/dtype_utils.py:312: FutureWarning: pyUSID.io.dtype_utils.validate_single_string_arg has been moved to sidpy.base.string_utils.validate_single_string_arg. This copy in pyUSID willbe removed in future release. Please update your import statements
+  FutureWarning)
+/
+Measurement_000
+Measurement_000/Channel_000
+Measurement_000/Channel_000/Magnitude_000
+Measurement_000/Channel_000/Position_Indices
+Measurement_000/Channel_000/Position_Values
+Measurement_000/Channel_000/Raw_Data
+Measurement_000/Channel_000/Spectroscopic_Indices
+Measurement_000/Channel_000/Spectroscopic_Values
+</pre></div>
+</div>
+<p>Now we want to add our data. But we want to add some attributes as well to describe
+what we’ve done to our data. Attributes are a dictionary, so let’s create one.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">attrs</span> <span class="o">=</span> <span class="p">{</span><span class="s1">&#39;Method&#39;</span><span class="p">:</span> <span class="s1">&#39;Magnitude_Squared&#39;</span><span class="p">,</span> <span class="s1">&#39;units&#39;</span><span class="p">:</span> <span class="s1">&#39;m^2&#39;</span><span class="p">}</span>
+<span class="n">usid</span><span class="o">.</span><span class="n">hdf_utils</span><span class="o">.</span><span class="n">write_simple_attrs</span><span class="p">(</span><span class="n">result_group</span><span class="p">,</span> <span class="n">attrs</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now, let’s write a new main dataset</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">data_result</span> <span class="o">=</span> <span class="n">usid</span><span class="o">.</span><span class="n">hdf_utils</span><span class="o">.</span><span class="n">write_main_dataset</span><span class="p">(</span><span class="n">result_group</span><span class="p">,</span>
+                                                <span class="n">data_proc</span><span class="p">,</span>
+                                                <span class="s1">&#39;Data Squared&#39;</span><span class="p">,</span>
+                                                <span class="s1">&#39;Height Squared&#39;</span><span class="p">,</span> <span class="s1">&#39;m^2&#39;</span><span class="p">,</span>
+                                                <span class="n">pos_dims</span><span class="p">,</span>
+                                                <span class="n">spec_dims</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/home/travis/virtualenv/python3.7.1/lib/python3.7/site-packages/pyUSID/io/dtype_utils.py:361: FutureWarning: pyUSID.io.dtype_utils.validate_string_args has been moved to sidpy.base.string_utils.validate_string_args. This copy in pyUSID willbe removed in future release. Please update your import statements
+  FutureWarning)
+/home/travis/virtualenv/python3.7.1/lib/python3.7/site-packages/pyUSID/io/dtype_utils.py:65: FutureWarning: pyUSID.io.dtype_utils.contains_integers has been moved to sidpy.base.num_utils.contains_integers. This copy in pyUSID willbe removed in future release. Please update your import statements
+  FutureWarning)
+/home/travis/virtualenv/python3.7.1/lib/python3.7/site-packages/pyUSID/io/hdf_utils/simple.py:1135: UserWarning: In the future write_ind_val_dsets will default to requiring dimensions to be arranged from slowest to fastest varying
+  warn(&#39;In the future write_ind_val_dsets will default to requiring dimensions to be arranged from slowest to fastest varying&#39;)
+/home/travis/virtualenv/python3.7.1/lib/python3.7/site-packages/pyUSID/io/hdf_utils/simple.py:1192: UserWarning: pyUSID.io.hdf_utils.simple.write_ind_val_dsets no longer createsregion references for each dimension. Please use pyUSID.io.reg_ref.write_region_references to manually create region references
+  warn(&#39;pyUSID.io.hdf_utils.simple.write_ind_val_dsets no longer creates&#39;
+/home/travis/virtualenv/python3.7.1/lib/python3.7/site-packages/pyUSID/io/dtype_utils.py:41: FutureWarning: pyUSID.io.dtype_utils.lazy_load_array has been moved to sidpy.hdf.hdf_utils.lazy_load_array. This copy in pyUSID willbe removed in future release. Please update your import statements
+  FutureWarning)
+</pre></div>
+</div>
+<p>This populates our new folder with the new data! Let’s look for the Magnitude folder in our tree:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">usid</span><span class="o">.</span><span class="n">hdf_utils</span><span class="o">.</span><span class="n">print_tree</span><span class="p">(</span><span class="n">h5_file</span><span class="p">,</span> <span class="n">rel_paths</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>/
+Measurement_000
+Measurement_000/Channel_000
+Measurement_000/Channel_000/Magnitude_000
+Measurement_000/Channel_000/Magnitude_000/Data Squared
+Measurement_000/Channel_000/Magnitude_000/Position_Indices
+Measurement_000/Channel_000/Magnitude_000/Position_Values
+Measurement_000/Channel_000/Magnitude_000/Spectroscopic_Indices
+Measurement_000/Channel_000/Magnitude_000/Spectroscopic_Values
+Measurement_000/Channel_000/Position_Indices
+Measurement_000/Channel_000/Position_Values
+Measurement_000/Channel_000/Raw_Data
+Measurement_000/Channel_000/Spectroscopic_Indices
+Measurement_000/Channel_000/Spectroscopic_Values
+</pre></div>
+</div>
+<p>If we get all the Main datasets, we see a new dataset pop up in our list.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">usid</span><span class="o">.</span><span class="n">hdf_utils</span><span class="o">.</span><span class="n">get_all_main</span><span class="p">(</span><span class="n">h5_file</span><span class="p">))</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>[&lt;HDF5 dataset &quot;Data Squared&quot;: shape (100, 100), type &quot;&lt;f8&quot;&gt;
+located at:
+        /Measurement_000/Channel_000/Magnitude_000/Data Squared
+Data contains:
+        Height Squared (m^2)
+Data dimensions and original shape:
+Position Dimensions:
+        Cols - size: 10
+        Rows - size: 10
+Spectroscopic Dimensions:
+        Time - size: 100
+Data Type:
+        float64, &lt;HDF5 dataset &quot;Raw_Data&quot;: shape (100, 100), type &quot;&lt;f8&quot;&gt;
+located at:
+        /Measurement_000/Channel_000/Raw_Data
+Data contains:
+        Height (m)
+Data dimensions and original shape:
+Position Dimensions:
+        Cols - size: 10
+        Rows - size: 10
+Spectroscopic Dimensions:
+        Time - size: 100
+Data Type:
+        float64]
+</pre></div>
+</div>
+<p>And to verify the attributes for the data and the data_group.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">usid</span><span class="o">.</span><span class="n">hdf_utils</span><span class="o">.</span><span class="n">get_attributes</span><span class="p">(</span><span class="n">data_result</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">usid</span><span class="o">.</span><span class="n">hdf_utils</span><span class="o">.</span><span class="n">get_attributes</span><span class="p">(</span><span class="n">data_result</span><span class="o">.</span><span class="n">parent</span><span class="p">))</span>
+
+<span class="c1"># Lastly, to verify this dataset is a Main dataset (with position and spectral dimensions)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">usid</span><span class="o">.</span><span class="n">hdf_utils</span><span class="o">.</span><span class="n">get_attributes</span><span class="p">(</span><span class="n">data_result</span><span class="p">))</span>
+</pre></div>
+</div>
+<p class="sphx-glr-script-out">Out:</p>
+<div class="sphx-glr-script-out highlight-none notranslate"><div class="highlight"><pre><span></span>{&#39;Position_Indices&#39;: &lt;HDF5 object reference&gt;, &#39;Position_Values&#39;: &lt;HDF5 object reference&gt;, &#39;Spectroscopic_Indices&#39;: &lt;HDF5 object reference&gt;, &#39;Spectroscopic_Values&#39;: &lt;HDF5 object reference&gt;, &#39;machine_id&#39;: &#39;localhost&#39;, &#39;platform&#39;: &#39;Linux-4.15.0-1077-gcp-x86_64-with-debian-stretch-sid&#39;, &#39;pyUSID_version&#39;: &#39;0.0.9&#39;, &#39;quantity&#39;: &#39;Height Squared&#39;, &#39;sidpy_version&#39;: &#39;0.0.1&#39;, &#39;timestamp&#39;: &#39;2020_08_18-02_10_08&#39;, &#39;units&#39;: &#39;m^2&#39;}
+{&#39;Method&#39;: &#39;Magnitude_Squared&#39;, &#39;machine_id&#39;: &#39;localhost&#39;, &#39;platform&#39;: &#39;Linux-4.15.0-1077-gcp-x86_64-with-debian-stretch-sid&#39;, &#39;pyUSID_version&#39;: &#39;0.0.9&#39;, &#39;sidpy_version&#39;: &#39;0.0.1&#39;, &#39;timestamp&#39;: &#39;2020_08_18-02_10_08&#39;, &#39;units&#39;: &#39;m^2&#39;}
+{&#39;Position_Indices&#39;: &lt;HDF5 object reference&gt;, &#39;Position_Values&#39;: &lt;HDF5 object reference&gt;, &#39;Spectroscopic_Indices&#39;: &lt;HDF5 object reference&gt;, &#39;Spectroscopic_Values&#39;: &lt;HDF5 object reference&gt;, &#39;machine_id&#39;: &#39;localhost&#39;, &#39;platform&#39;: &#39;Linux-4.15.0-1077-gcp-x86_64-with-debian-stretch-sid&#39;, &#39;pyUSID_version&#39;: &#39;0.0.9&#39;, &#39;quantity&#39;: &#39;Height Squared&#39;, &#39;sidpy_version&#39;: &#39;0.0.1&#39;, &#39;timestamp&#39;: &#39;2020_08_18-02_10_08&#39;, &#39;units&#39;: &#39;m^2&#39;}
+</pre></div>
+</div>
+<p class="sphx-glr-timing"><strong>Total running time of the script:</strong> ( 0 minutes  0.861 seconds)</p>
+<div class="sphx-glr-footer class sphx-glr-footer-example docutils container" id="sphx-glr-download-auto-examples-beginner-plot-ten-mins-pyusid-py">
+<div class="sphx-glr-download sphx-glr-download-python docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/dfa167c5452971fa7186787e977a1d6e/plot_ten_mins_pyusid.py"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Python</span> <span class="pre">source</span> <span class="pre">code:</span> <span class="pre">plot_ten_mins_pyusid.py</span></code></a></p>
+</div>
+<div class="sphx-glr-download sphx-glr-download-jupyter docutils container">
+<p><a class="reference download internal" download="" href="../../_downloads/db7973cd915592f0037ae38172de3edb/plot_ten_mins_pyusid.ipynb"><code class="xref download docutils literal notranslate"><span class="pre">Download</span> <span class="pre">Jupyter</span> <span class="pre">notebook:</span> <span class="pre">plot_ten_mins_pyusid.ipynb</span></code></a></p>
+</div>
+</div>
+<p class="sphx-glr-signature"><a class="reference external" href="https://sphinx-gallery.github.io">Gallery generated by Sphinx-Gallery</a></p>
+</div>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="plot_usi_dataset.html" class="btn btn-neutral float-right" title="02. The USIDataset" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="plot_h5py.html" class="btn btn-neutral float-left" title="00. Primer to HDF5 and h5py" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        
+        &copy; Copyright 2018, Suhas Somnath, Chris R. Smith, Stephen Jesse
+
+    </p>
+  </div>
+    
+    
+    
+    Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a
+    
+    <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a>
+    
+    provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

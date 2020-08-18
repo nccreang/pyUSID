@@ -1,0 +1,24 @@
+
+:orphan:
+
+.. _sphx_glr_auto_examples_intermediate_sg_execution_times:
+
+Computation times
+=================
+**05:13.753** total execution time for **auto_examples_intermediate** files:
+
++----------------------------------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_auto_examples_intermediate_plot_parallel_compute.py` (``plot_parallel_compute.py``) | 03:52.165 | 0.0 MB |
++----------------------------------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_auto_examples_intermediate_plot_process.py` (``plot_process.py``)                   | 01:19.716 | 0.0 MB |
++----------------------------------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_auto_examples_intermediate_plot_write_utils.py` (``plot_write_utils.py``)           | 00:01.362 | 0.0 MB |
++----------------------------------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_auto_examples_intermediate_plot_hdf_utils_write.py` (``plot_hdf_utils_write.py``)   | 00:00.483 | 0.0 MB |
++----------------------------------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_auto_examples_intermediate_plot_dtype_utils.py` (``plot_dtype_utils.py``)           | 00:00.018 | 0.0 MB |
++----------------------------------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_auto_examples_intermediate_plot_io_utils.py` (``plot_io_utils.py``)                 | 00:00.005 | 0.0 MB |
++----------------------------------------------------------------------------------------------------+-----------+--------+
+| :ref:`sphx_glr_auto_examples_intermediate_plot_comp_utils.py` (``plot_comp_utils.py``)             | 00:00.004 | 0.0 MB |
++----------------------------------------------------------------------------------------------------+-----------+--------+
